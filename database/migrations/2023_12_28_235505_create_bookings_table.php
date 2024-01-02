@@ -11,20 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spots', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('cost'); //price
-            $table->string('path'); //url foto
-            $table->string('city'); //cidade
-            $table->unsignedInteger('duration')->default(60);
-            $table->string('description');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('slot_id');
+            $table->unsignedInteger('slots_reserved')->default(1); //quantidade reservas
             $table->timestamps();
 
-            $table->foreign('user_id', 'user_id_fk')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
+                ->onUpdate('CASCADE')
+                ->onDelete('RESTRICT');
+
+            $table->foreign('slot_id')
+                ->references('id')
+                ->on('slots')
                 ->onUpdate('CASCADE')
                 ->onDelete('RESTRICT');
         });
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spots');
+        Schema::dropIfExists('bookings');
     }
 };

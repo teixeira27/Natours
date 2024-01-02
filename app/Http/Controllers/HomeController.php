@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Spot;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);//verifica se o utilizador está autenticado
+        $this->middleware(['auth', 'verified']); //verifica se o utilizador está autenticado
     }
 
     /**
@@ -23,9 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $spots = Spot::all();
+        return view('home', compact("spots"));
     }
-    public function adminHome(){
-        return view('adminHome');
+    public function adminHome()
+    {
+        $users = User::all();
+        return view('adminHome', compact("users"));
     }
 }

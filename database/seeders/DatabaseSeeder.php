@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Slot;
+use App\Models\Booking;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +15,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         \App\Models\User::factory(100)->create();
+        User::factory(100)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(
+            [
+                UsersTableSeeder::class,
+            ]
+        );
+        $this->call(
+            [
+                SpotsTableSeeder::class,
+            ]
+        );
+
+        Slot::factory(100)->create();
+
+        //Booking::factory(100)->create();
     }
 }

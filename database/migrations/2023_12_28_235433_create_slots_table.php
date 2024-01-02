@@ -11,20 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spots', function (Blueprint $table) {
+        Schema::create('slots', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('cost'); //price
-            $table->string('path'); //url foto
-            $table->string('city'); //cidade
-            $table->unsignedInteger('duration')->default(60);
-            $table->string('description');
-            $table->unsignedBigInteger('user_id');
+            $table->dateTime('start_time');
+            $table->unsignedInteger('quantity')->default(0);
+            //$table->unsignedInteger('duration')->default(60);
+            $table->unsignedBigInteger('spot_id');
             $table->timestamps();
 
-            $table->foreign('user_id', 'user_id_fk')
+            $table->foreign('spot_id')
                 ->references('id')
-                ->on('users')
+                ->on('spots')
                 ->onUpdate('CASCADE')
                 ->onDelete('RESTRICT');
         });
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spots');
+        Schema::dropIfExists('slots');
     }
 };
