@@ -83,7 +83,7 @@
                 <p class="spot-price">Preço: {{ $spot->cost }}€</p>
 
                 <!-- Adicione o botão para acessar o show de cada spot -->
-                <a href="{{ url('/spots/show/' . $spot->id) }}" class="btn btn-primary">Reservar</a>
+                <a href="{{ url('/spots/show/' . $spot->id) }}" class="btn btn-primary">Show</a>
             </div>
         </div>
         @endforeach

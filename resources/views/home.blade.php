@@ -16,14 +16,15 @@
 
                     {{ __('You are logged in!') }}
                 </div>
+
                 <div class="card-body">
                     @include('partials.upload')
                 </div>
+
                 <div class="card-body">
                     @include('partials.list')
                 </div>
             </div>
         </div>
     </div>
-</div>
-@endsection
+    @endsection

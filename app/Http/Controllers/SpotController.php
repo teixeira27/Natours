@@ -63,8 +63,13 @@ class SpotController extends Controller
     public function show(Spot $spot)
     {
         $slots = $spot->slots;
+        $comments = $spot->comments;
 
-        return view('spots.show', ['spot' => $spot, 'slots' => $slots]);
+        return view('spots.show', [
+            'spot' => $spot,
+            'slots' => $slots,
+            'comments' => $comments,
+        ]);
     }
 
     /**
