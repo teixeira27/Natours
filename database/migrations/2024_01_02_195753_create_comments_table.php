@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('spot_id');
-            $table->string('Comment');
-            $table->unsignedBigInteger('Rating');
+            $table->text('comment');
+            $table->unsignedInteger('rating');
             $table->timestamps();
 
             $table->foreign('user_id')

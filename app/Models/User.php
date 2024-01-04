@@ -45,9 +45,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
     public function spots()
-{
-    return $this->hasMany(Spot::class);
-}
+    {
+        return $this->hasMany(Spot::class);
+    }
+    public function favoritedSpots()
+    {
+        return $this->belongsToMany(Spot::class, 'favorites', 'user_id', 'spot_id')->withTimestamps();
+    }
 }

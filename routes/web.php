@@ -6,6 +6,8 @@ use App\Http\Controllers\SpotController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SlotController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -55,5 +57,9 @@ Route::delete('/spots/destroy/{spot}', [SpotController::class, 'destroy'])->midd
 Route::post('/session/{spot}', [SpotController::class, 'session'])->name('checkout.session');
 Route::get('/success', [SpotController::class, 'success'])->name('success');
 
-Route::post('/session/{slot}/{quantity}', [SlotController::class, 'session'])->name('checkout.session');
-Route::get('/success', [SlotController::class, 'success'])->name('success');
+Route::post('/favorites/add/{spot}', [FavoriteController::class, 'add'])->name('favorites.add');
+Route::delete('/favorites/remove/{spot}', [FavoriteController::class, 'remove'])->name('favorites.remove');
+
+Route::post('/spots/{spot}/comments', [CommentController::class, 'store'])->name('comments.store');
+//Route::post('/session/{slot}', [SlotController::class, 'session'])->name('checkout.session');
+//Route::get('/success', [SlotController::class, 'success'])->name('success');
