@@ -1,0 +1,33 @@
+name: Laravel CI/CD with SonarCloud and PHPUnit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Laravel
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: gd, xdebug
+
+      - name: Install PHP dependencies
+        run: composer install
+
+      - name: Analyze code with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@2.5
+        with:
+          sonarcloud-organization: teixeira27
+          sonarcloud-project-key: teixeira27_Natours
+          sonarcloud-token: $aca9ce7c0c035f956308669933b32a00b147792a 
+
+      - name: Run tests
+        run: php artisan test
