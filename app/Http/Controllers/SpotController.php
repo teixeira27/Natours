@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SpotController extends Controller
 {
+    const MAX_STRING_LENGTH = 255;
     /**
      * Display a listing of the resource.
      */
@@ -30,10 +31,12 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:' . self::MAX_STRING_LENGTH,
             'cost' => 'required|integer',
-            'city' => 'required|string|max:255',
+            'city' => 'required|string|max:' . self::MAX_STRING_LENGTH,
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);

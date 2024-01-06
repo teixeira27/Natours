@@ -8,6 +8,9 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    public const MAX_STRING_LENGTH = 255;
+
     /**
      * Display a listing of the resource.
      */
@@ -33,9 +36,9 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'city' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:' . self::MAX_STRING_LENGTH,],
+            'email' => ['required', 'string', 'email', 'max:' . self::MAX_STRING_LENGTH,, 'unique:users'],
+            'city' => ['required', 'string', 'max:' . self::MAX_STRING_LENGTH,],
             'password' => ['required', 'string', 'min:8'],
         ]);
 
