@@ -16,6 +16,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args:
+            -Dsonar.projectKey=teixeira27_Natours
+            -Dsonar.organization=teixeira27
   tests:
     name: PHPUnit
     runs-on: ubuntu-latest
