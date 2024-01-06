@@ -51,7 +51,7 @@ class SpotController extends Controller
         $spot->description = $request->input('description');
         $spot->user_id = Auth::id(); //auth da o user autenticado
 
-        // Salva no banco de dados
+        // Guarda na base de dados
         $spot->save();
 
         return redirect()->back()->with('status', 'Spot cadastrado com sucesso');
@@ -109,7 +109,7 @@ class SpotController extends Controller
                         'product_data' => [
                             'name' => $spot->name,
                         ],
-                        'unit_amount'  => $spot->cost * 100,
+                        'unit_amount'  => $this->calcCost($spot),
                     ],
                     'quantity'   => 1,
                 ],
@@ -127,5 +127,10 @@ class SpotController extends Controller
     public function success()
     {
         return view('grateful');
+    }
+
+    public function calcCost(Spot $spot)
+    {
+        return $spot->cost * 100;
     }
 }
