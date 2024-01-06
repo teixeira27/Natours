@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class SpotController extends Controller
 {
+    const MAX_STRING_LENGTH = 255;
     /**
      * Display a listing of the resource.
      */
@@ -30,10 +31,12 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
+        
+
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:' . self::MAX_STRING_LENGTH,
             'cost' => 'required|integer',
-            'city' => 'required|string|max:255',
+            'city' => 'required|string|max:' . self::MAX_STRING_LENGTH,
             'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'description' => 'required|string',
         ]);
@@ -51,7 +54,7 @@ class SpotController extends Controller
         $spot->description = $request->input('description');
         $spot->user_id = Auth::id(); //auth da o user autenticado
 
-        // Salva no banco de dados
+        // Guarda na base de dados
         $spot->save();
 
         return redirect()->back()->with('status', 'Spot cadastrado com sucesso');
@@ -109,7 +112,7 @@ class SpotController extends Controller
                         'product_data' => [
                             'name' => $spot->name,
                         ],
-                        'unit_amount'  => $spot->cost * 100,
+                        'unit_amount'  => $this->calcCost($spot),
                     ],
                     'quantity'   => 1,
                 ],
@@ -127,5 +130,10 @@ class SpotController extends Controller
     public function success()
     {
         return view('grateful');
+    }
+
+    public function calcCost(Spot $spot)
+    {
+        return $spot->cost * 100;
     }
 }

@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    public const MAX_STRING_LENGTH = 255;
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -50,9 +52,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'city' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:' . self::MAX_STRING_LENGTH],
+            'email' => ['required', 'string', 'email', 'max:' . self::MAX_STRING_LENGTH, 'unique:users'],
+            'city' => ['required', 'string', 'max:' . self::MAX_STRING_LENGTH],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
